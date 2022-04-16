@@ -38,7 +38,7 @@
 	Create Todo
 </button>
 {#each todos as todo}
-	<Todo todo={todo} />
+	<Todo {todo} />
 {/each}
 
 <style>
