@@ -1,6 +1,7 @@
 <script>
   // Props
   export let todo;
+  export let todos;
 
   let isEdit = false;
   let editTitle = todo.title;
@@ -25,7 +26,7 @@
   }
 
   function deleteTodo() {
-    
+    $todos = $todos.filter(t => (t.id !== todo.id));
   }
 </script>
 

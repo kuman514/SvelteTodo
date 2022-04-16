@@ -1,8 +1,9 @@
 <script>
 	import Todo from './Todo.svelte';
+	import { writable } from 'svelte/store';
 
 	let title = '';
-	let todos = [];
+	let todos = writable([]);
 	let id = 0;
 
 	function createTodo() {
@@ -14,12 +15,18 @@
 		});
 		todos = newTodos;
 		*/
-		// Svelte에서는 자기자신을 할당하는 것이 반응성을 살리는 것이라 일반적이다?
-		todos.push({
+
+		if (title.trim() === '') {
+			title = '';
+			return;
+		}
+
+		// In Svelte, to activate reactivity, reallocate itself.
+		$todos.push({
 			id,
 			title
 		});
-		todos = todos;
+		$todos = $todos;
 		title = '';
 		id++;
 	}
@@ -37,8 +44,9 @@
 <button on:click={createTodo}>
 	Create Todo
 </button>
-{#each todos as todo}
-	<Todo {todo} />
+{#each $todos as todo}
+	<!-- todos, not $todos, to send a store object -->
+	<Todo {todos} {todo} />
 {/each}
 
 <style>
