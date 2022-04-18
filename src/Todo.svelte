@@ -35,6 +35,16 @@
     <input
       type="text"
       bind:value={editTitle}
+      on:keydown={event => {
+        switch (event.key) {
+          case 'Enter':
+            confirmEdit();
+            break;
+          case 'Escape':
+            cancelEdit();
+            break;
+        }
+      }}
     />
     <button on:click={confirmEdit}>
       OK
